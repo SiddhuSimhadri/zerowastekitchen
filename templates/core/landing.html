@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to Zero Waste Kitchen{% endblock %}
+
+{% block content %}
+<section class="text-center my-5">
+  <h1 class="display-3 fw-bold mb-3">🌱 Zero Waste Kitchen</h1>
+  <p class="lead mb-4 fs-5 mx-auto" style="max-width: 700px;">
+    Track your pantry, reduce food waste, and get inspired with delicious recipes tailored to your ingredients.
+  </p>
+  <a href="{% url 'signup' %}" class="btn btn-primary btn-lg me-3 px-5 shadow">Get Started</a>
+  <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-5 shadow">Login</a>
+</section>
+
+<section class="row text-center g-4 mt-5">
+  <div class="col-md-4">
+    <div class="card p-4">
+      <i class="bi bi-basket-fill text-success mb-3" style="font-size: 3rem;"></i>
+      <h4 class="mb-2 fw-semibold">Smart Pantry Tracking</h4>
+      <p>Keep your ingredients organized with expiration reminders and waste tracking.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4">
+      <i class="bi bi-egg-fried text-warning mb-3" style="font-size: 3rem;"></i>
+      <h4 class="mb-2 fw-semibold">Recipe Suggestions</h4>
+      <p>Get recipes tailored to what you have to reduce waste and eat delicious meals.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4">
+      <i class="bi bi-bar-chart-line-fill text-info mb-3" style="font-size: 3rem;"></i>
+      <h4 class="mb-2 fw-semibold">Insightful Analytics</h4>
+      <p>Track your food waste trends and improve your kitchen habits over time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="text-center mt-5 mb-5">
+  <h3 class="fw-bold mb-3">Why Zero Waste Kitchen?</h3>
+  <p class="mx-auto" style="max-width: 600px;">
+    Food waste is a major problem globally. By tracking what you have and using it efficiently, you can save money, time, and the planet.
+  </p>
+</section>
+{% endblock %}

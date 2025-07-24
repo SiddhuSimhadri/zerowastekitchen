@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | Zero Waste Kitchen{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Hello, {{ user.username }} 👋</h2>
+
+<!-- Stats Cards -->
+<div class="row mb-5">
+  <div class="col-md-4">
+    <div class="card p-4 text-center text-white bg-success">
+      <h5>Total Items</h5>
+      <h2>{{ total_items }}</h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4 text-center text-white bg-danger">
+      <h5>Expired Items</h5>
+      <h2>{{ expired_items }}</h2>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4 text-center text-white bg-warning">
+      <h5>Expiring Soon</h5>
+      <h2>{{ expiring_soon }}</h2>
+    </div>
+  </div>
+</div>
+
+<!-- Pantry List -->
+<div class="card p-4 mb-5">
+  <h3 class="mb-4">Your Pantry Items</h3>
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Expires</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr class="{% if item.expiration_date < today %}table-danger{% elif item.expiration_date <= warning_date %}table-warning{% endif %}">
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.expiration_date|date:"M d, Y" }}</td>
+        <td>
+          {% if item.expiration_date < today %}
+            <span class="badge bg-danger">Expired</span>
+          {% elif item.expiration_date <= warning_date %}
+            <span class="badge bg-warning text-dark">Expiring Soon</span>
+          {% else %}
+            <span class="badge bg-success">Fresh</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4" class="text-center">No pantry items yet!</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'add_pantry_item' %}" class="btn btn-primary mt-3">Add Pantry Item</a>
+</div>
+
+<!-- Recipes Section -->
+<div>
+  <h3>Recipe Suggestions</h3>
+  <div class="row g-4">
+    {% for recipe in recipes %}
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="{{ recipe.image }}" class="card-img-top rounded-top" alt="{{ recipe.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            <p class="card-text">{{ recipe.summary|safe|truncatechars:120 }}</p>
+            <a href="{{ recipe.sourceUrl }}" target="_blank" class="btn btn-success">View Recipe</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No recipe suggestions available right now.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

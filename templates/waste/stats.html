@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Waste Tracker - Last 30 Days</h2>
+
+<canvas id="wasteChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('wasteChart').getContext('2d');
+const wasteChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ labels|safe }},
+        datasets: [{
+            label: 'Wasted Items',
+            data: {{ counts|safe }},
+            borderColor: 'rgba(75, 192, 192, 1)',
+            fill: false,
+            tension: 0.3,
+        }]
+    },
+    options: {
+        scales: {
+            x: { display: true, title: { display: true, text: 'Date' }},
+            y: { display: true, title: { display: true, text: 'Count' }, beginAtZero: true }
+        }
+    }
+});
+</script>
+
+{% endblock %}
